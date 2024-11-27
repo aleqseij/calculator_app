@@ -5,6 +5,7 @@ from calc_operations import (
     memory_add, memory_subtract, memory_clear, memory_recall
 )
 
+# Глобальная переменная для отображения текста в поле ввода
 entry_text = None
 
 def on_button_click(value):
@@ -29,7 +30,7 @@ def on_memory_add():
     try:
         value = float(entry_text.get())
         memory_add(value)
-        entry_text.set("")  # Очистить поле ввода
+        entry_text.set("")
     except ValueError:
         entry_text.set("Error")
 
@@ -38,7 +39,7 @@ def on_memory_subtract():
     try:
         value = float(entry_text.get())
         memory_subtract(value)
-        entry_text.set("")  # Очистить поле ввода
+        entry_text.set("")
     except ValueError:
         entry_text.set("Error")
 
@@ -50,6 +51,77 @@ def on_memory_recall():
 def on_memory_clear():
     """Очищает память."""
     memory_clear()
+
+def on_modulus():
+    """Выполняет операцию остатка от деления."""
+    try:
+        values = entry_text.get().split('%')
+        if len(values) == 2:
+            a, b = float(values[0]), float(values[1])
+            result = modulus(a, b)
+            entry_text.set(result)
+        else:
+            entry_text.set("Error")
+    except Exception:
+        entry_text.set("Error")
+
+def on_sine():
+    """Вычисляет синус."""
+    try:
+        value = float(entry_text.get())
+        result = sine(value)
+        entry_text.set(result)
+    except ValueError:
+        entry_text.set("Error")
+
+def on_cosine():
+    """Вычисляет косинус."""
+    try:
+        value = float(entry_text.get())
+        result = cosine(value)
+        entry_text.set(result)
+    except ValueError:
+        entry_text.set("Error")
+
+def on_power():
+    """Выполняет возведение в степень."""
+    try:
+        values = entry_text.get().split('^')
+        if len(values) == 2:
+            a, b = float(values[0]), float(values[1])
+            result = power(a, b)
+            entry_text.set(result)
+        else:
+            entry_text.set("Error")
+    except Exception:
+        entry_text.set("Error")
+
+def on_square_root():
+    """Вычисляет квадратный корень."""
+    try:
+        value = float(entry_text.get())
+        result = square_root(value)
+        entry_text.set(result)
+    except ValueError:
+        entry_text.set("Error")
+
+def on_floor():
+    """Округляет число в меньшую сторону."""
+    try:
+        value = float(entry_text.get())
+        result = floor_value(value)
+        entry_text.set(result)
+    except ValueError:
+        entry_text.set("Error")
+
+def on_ceil():
+    """Округляет число в большую сторону."""
+    try:
+        value = float(entry_text.get())
+        result = ceil_value(value)
+        entry_text.set(result)
+    except ValueError:
+        entry_text.set("Error")
 
 def start_calculator():
     """Запускает графический интерфейс калькулятора."""
@@ -70,7 +142,9 @@ def start_calculator():
         ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('*', 2, 3),
         ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('-', 3, 3),
         ('0', 4, 0), ('.', 4, 1), ('=', 4, 2), ('+', 4, 3),
-        ('MC', 5, 0), ('MR', 5, 1), ('M+', 5, 2), ('M-', 5, 3)
+        ('MC', 5, 0), ('MR', 5, 1), ('M+', 5, 2), ('M-', 5, 3),
+        ('%', 6, 0), ('sin', 6, 1), ('cos', 6, 2), ('^', 6, 3),
+        ('√', 7, 0), ('floor', 7, 1), ('ceil', 7, 2)
     ]
 
     # Генерация кнопок
@@ -87,6 +161,20 @@ def start_calculator():
             button = tk.Button(window, text=text, width=10, height=3, command=on_memory_add)
         elif text == "M-":
             button = tk.Button(window, text=text, width=10, height=3, command=on_memory_subtract)
+        elif text == "%":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_modulus)
+        elif text == "sin":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_sine)
+        elif text == "cos":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_cosine)
+        elif text == "^":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_power)
+        elif text == "√":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_square_root)
+        elif text == "floor":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_floor)
+        elif text == "ceil":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_ceil)
         else:
             button = tk.Button(window, text=text, width=10, height=3, command=lambda t=text: on_button_click(t))
         button.grid(row=row, column=col)
