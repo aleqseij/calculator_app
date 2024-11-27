@@ -72,3 +72,24 @@ def start_calculator():
         ('0', 4, 0), ('.', 4, 1), ('=', 4, 2), ('+', 4, 3),
         ('MC', 5, 0), ('MR', 5, 1), ('M+', 5, 2), ('M-', 5, 3)
     ]
+
+    # Генерация кнопок
+    for (text, row, col) in buttons:
+        if text == "=":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_equal)
+        elif text == "C":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_clear)
+        elif text == "MC":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_memory_clear)
+        elif text == "MR":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_memory_recall)
+        elif text == "M+":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_memory_add)
+        elif text == "M-":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_memory_subtract)
+        else:
+            button = tk.Button(window, text=text, width=10, height=3, command=lambda t=text: on_button_click(t))
+        button.grid(row=row, column=col)
+
+    # Запуск главного цикла окна
+    window.mainloop()
