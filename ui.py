@@ -14,3 +14,12 @@ def on_button_click(value):
 def on_clear():
     """Очищает поле ввода."""
     entry_text.set("")
+
+def on_equal():
+    """Выполняет вычисление введенного выражения."""
+    try:
+        # Оцениваем выражение, используя встроенный eval
+        result = eval(entry_text.get())
+        entry_text.set(result)
+    except Exception as e:
+        entry_text.set(f"Error: {e}")
