@@ -30,3 +30,6 @@ def sine(a):
 
 def cosine(a):
     return math.cos(math.radians(a))
+
+def floor_value(a):
+    return math.floor(a)
