@@ -16,6 +16,11 @@ def on_clear():
     """Очищает поле ввода."""
     entry_text.set("")
 
+def on_backspace():
+    """Удаляет последний символ из поля ввода."""
+    current_text = entry_text.get()
+    entry_text.set(current_text[:-1])
+
 def on_equal():
     """Выполняет вычисление введенного выражения."""
     try:
@@ -23,6 +28,10 @@ def on_equal():
         expression = entry_text.get().replace("^", "**")
         result = eval(expression)
         entry_text.set(result)
+    except ZeroDivisionError:
+        entry_text.set("Error: Division by zero")
+    except SyntaxError:
+        entry_text.set("Error: Invalid syntax")
     except Exception as e:
         entry_text.set(f"Error: {e}")
 
@@ -33,7 +42,7 @@ def on_memory_add():
         memory_add(value)
         entry_text.set("")
     except ValueError:
-        entry_text.set("Error")
+        entry_text.set("Error: Invalid input")
 
 def on_memory_subtract():
     """Вычитает текущее значение из памяти."""
@@ -42,7 +51,7 @@ def on_memory_subtract():
         memory_subtract(value)
         entry_text.set("")
     except ValueError:
-        entry_text.set("Error")
+        entry_text.set("Error: Invalid input")
 
 def on_memory_recall():
     """Вставляет значение из памяти в поле ввода."""
@@ -64,7 +73,7 @@ def on_sine():
         result = sine(value)
         entry_text.set(result)
     except ValueError:
-        entry_text.set("Error")
+        entry_text.set("Error: Invalid input")
 
 def on_cosine():
     """Вычисляет косинус."""
@@ -73,7 +82,7 @@ def on_cosine():
         result = cosine(value)
         entry_text.set(result)
     except ValueError:
-        entry_text.set("Error")
+        entry_text.set("Error: Invalid input")
 
 def on_power():
     """Добавляет знак возведения в степень в поле ввода."""
@@ -86,7 +95,7 @@ def on_square_root():
         result = square_root(value)
         entry_text.set(result)
     except ValueError:
-        entry_text.set("Error")
+        entry_text.set("Error: Invalid input")
 
 def on_floor():
     """Округляет число в меньшую сторону."""
@@ -95,7 +104,7 @@ def on_floor():
         result = floor_value(value)
         entry_text.set(result)
     except ValueError:
-        entry_text.set("Error")
+        entry_text.set("Error: Invalid input")
 
 def on_ceil():
     """Округляет число в большую сторону."""
@@ -104,7 +113,7 @@ def on_ceil():
         result = ceil_value(value)
         entry_text.set(result)
     except ValueError:
-        entry_text.set("Error")
+        entry_text.set("Error: Invalid input")
 
 def start_calculator():
     """Запускает графический интерфейс калькулятора."""
@@ -127,7 +136,7 @@ def start_calculator():
         ('0', 4, 0), ('.', 4, 1), ('=', 4, 2), ('+', 4, 3),
         ('MC', 5, 0), ('MR', 5, 1), ('M+', 5, 2), ('M-', 5, 3),
         ('%', 6, 0), ('sin', 6, 1), ('cos', 6, 2), ('^', 6, 3),
-        ('√', 7, 0), ('floor', 7, 1), ('ceil', 7, 2)
+        ('√', 7, 0), ('floor', 7, 1), ('ceil', 7, 2), ('←', 7, 3)  # Кнопка Backspace (←)
     ]
 
     # Генерация кнопок
@@ -158,6 +167,8 @@ def start_calculator():
             button = tk.Button(window, text=text, width=10, height=3, command=on_floor)
         elif text == "ceil":
             button = tk.Button(window, text=text, width=10, height=3, command=on_ceil)
+        elif text == "←":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_backspace)
         else:
             button = tk.Button(window, text=text, width=10, height=3, command=lambda t=text: on_button_click(t))
         button.grid(row=row, column=col)
