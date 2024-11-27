@@ -32,3 +32,12 @@ def on_memory_add():
         entry_text.set("")  # Очистить поле ввода
     except ValueError:
         entry_text.set("Error")
+
+def on_memory_subtract():
+    """Вычитает текущее значение из памяти."""
+    try:
+        value = float(entry_text.get())
+        memory_subtract(value)
+        entry_text.set("")  # Очистить поле ввода
+    except ValueError:
+        entry_text.set("Error")
