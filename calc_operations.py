@@ -27,3 +27,6 @@ def square_root(a):
 
 def sine(a):
     return math.sin(math.radians(a))
+
+def cosine(a):
+    return math.cos(math.radians(a))
