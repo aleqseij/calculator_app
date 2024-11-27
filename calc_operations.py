@@ -36,3 +36,24 @@ def floor_value(a):
 
 def ceil_value(a):
     return math.ceil(a)
+
+memory = 0
+
+def memory_add(value):
+    """Добавить значение в память (m+)"""
+    global memory
+    memory += value
+
+def memory_subtract(value):
+    """Вычесть значение из памяти"""
+    global memory
+    memory -= value
+
+def memory_clear():
+    """Очистить память (mc)"""
+    global memory
+    memory = 0
+
+def memory_recall():
+    """Вернуть значение из памяти (mr)"""
+    return memory
