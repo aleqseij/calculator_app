@@ -24,3 +24,6 @@ def square_root(a):
     if a < 0:
         raise ValueError("Cannot take square root of a negative number")
     return math.sqrt(a)
+
+def sine(a):
+    return math.sin(math.radians(a))
