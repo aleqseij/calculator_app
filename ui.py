@@ -53,17 +53,8 @@ def on_memory_clear():
     memory_clear()
 
 def on_modulus():
-    """Выполняет операцию остатка от деления."""
-    try:
-        values = entry_text.get().split('%')
-        if len(values) == 2:
-            a, b = float(values[0]), float(values[1])
-            result = modulus(a, b)
-            entry_text.set(result)
-        else:
-            entry_text.set("Error")
-    except Exception:
-        entry_text.set("Error")
+    """Добавляет знак остатка от деления в поле ввода."""
+    entry_text.set(entry_text.get() + " % ")
 
 def on_sine():
     """Вычисляет синус."""
@@ -84,17 +75,8 @@ def on_cosine():
         entry_text.set("Error")
 
 def on_power():
-    """Выполняет возведение в степень."""
-    try:
-        values = entry_text.get().split('^')
-        if len(values) == 2:
-            a, b = float(values[0]), float(values[1])
-            result = power(a, b)
-            entry_text.set(result)
-        else:
-            entry_text.set("Error")
-    except Exception:
-        entry_text.set("Error")
+    """Добавляет знак возведения в степень в поле ввода."""
+    entry_text.set(entry_text.get() + " ^ ")
 
 def on_square_root():
     """Вычисляет квадратный корень."""
