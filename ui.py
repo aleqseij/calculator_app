@@ -23,3 +23,12 @@ def on_equal():
         entry_text.set(result)
     except Exception as e:
         entry_text.set(f"Error: {e}")
+
+def on_memory_add():
+    """Добавляет текущее значение в память."""
+    try:
+        value = float(entry_text.get())
+        memory_add(value)
+        entry_text.set("")  # Очистить поле ввода
+    except ValueError:
+        entry_text.set("Error")
