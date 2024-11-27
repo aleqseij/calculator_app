@@ -26,10 +26,10 @@ def square_root(a):
     return math.sqrt(a)
 
 def sine(a):
-    return math.sin(math.radians(a))
+    return round(math.sin(math.radians(a)), 15)
 
 def cosine(a):
-    return math.cos(math.radians(a))
+    return round(math.cos(math.radians(a)), 15)
 
 def floor_value(a):
     return math.floor(a)
