@@ -41,3 +41,12 @@ def on_memory_subtract():
         entry_text.set("")  # Очистить поле ввода
     except ValueError:
         entry_text.set("Error")
+
+def on_memory_recall():
+    """Вставляет значение из памяти в поле ввода."""
+    value = memory_recall()
+    entry_text.set(entry_text.get() + str(value))
+
+def on_memory_clear():
+    """Очищает память."""
+    memory_clear()
