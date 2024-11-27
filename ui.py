@@ -19,8 +19,9 @@ def on_clear():
 def on_equal():
     """Выполняет вычисление введенного выражения."""
     try:
-        # Оцениваем выражение, используя встроенный eval
-        result = eval(entry_text.get())
+        # Преобразуем ^ в ** для возведения в степень
+        expression = entry_text.get().replace("^", "**")
+        result = eval(expression)
         entry_text.set(result)
     except Exception as e:
         entry_text.set(f"Error: {e}")
