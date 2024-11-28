@@ -38,10 +38,6 @@ def ceil_value(a):
     return math.ceil(a)
 
 memory = 0
-ram1 = 0
-ram2 = 0
-memory1 = 0
-memory2 = 0
 
 def memory_add(value):
     """Добавить значение в память (m+)"""
