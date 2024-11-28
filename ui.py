@@ -94,6 +94,27 @@ def on_memory_delete():
     except ValueError:
         entry_text.set("Error: No operations to delete")
 
+def on_history():
+    """Открывает окно с историей операций с памятью."""
+    history_window = tk.Toplevel()
+    history_window.title("Memory History")
+    
+    # Получаем историю из памяти
+    history_list = memory.get_history()
+
+    # Отображаем историю в окне
+    history_text = tk.Text(history_window, width=40, height=10)
+    history_text.pack(padx=10, pady=10)
+
+    if history_list:
+        for operation in history_list:
+            history_text.insert(tk.END, f"{operation}\n")
+    else:
+        history_text.insert(tk.END, "No operations in history.")
+    
+    # Делаем поле только для чтения
+    history_text.config(state=tk.DISABLED)
+
 def on_modulus():
     """Добавляет знак остатка от деления в поле ввода."""
     entry_text.set(entry_text.get() + " % ")
@@ -168,7 +189,8 @@ def start_calculator():
         ('0', 4, 0), ('.', 4, 1), ('=', 4, 2), ('+', 4, 3),
         ('MC', 5, 0), ('MR', 5, 1), ('M+', 5, 2), ('M-', 5, 3),
         ('%', 6, 0), ('sin', 6, 1), ('cos', 6, 2), ('^', 6, 3),
-        ('√', 7, 0), ('floor', 7, 1), ('ceil', 7, 2), ('←', 7, 3)  # Кнопка Backspace (←)
+        ('√', 7, 0), ('floor', 7, 1), ('ceil', 7, 2), ('←', 7, 3),  # Кнопка Backspace (←)
+        ('History', 8, 0)  # Кнопка для истории операций
     ]
 
     # Генерация кнопок
@@ -201,6 +223,8 @@ def start_calculator():
             button = tk.Button(window, text=text, width=10, height=3, command=on_ceil)
         elif text == "←":
             button = tk.Button(window, text=text, width=10, height=3, command=on_backspace)
+         elif text == "History":
+            button = tk.Button(window, text=text, width=10, height=3, command=on_history)
         else:
             button = tk.Button(window, text=text, width=10, height=3, command=lambda t=text: on_button_click(t))
         button.grid(row=row, column=col)
