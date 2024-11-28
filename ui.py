@@ -223,7 +223,7 @@ def start_calculator():
             button = tk.Button(window, text=text, width=10, height=3, command=on_ceil)
         elif text == "←":
             button = tk.Button(window, text=text, width=10, height=3, command=on_backspace)
-         elif text == "History":
+        elif text == "History":
             button = tk.Button(window, text=text, width=10, height=3, command=on_history)
         else:
             button = tk.Button(window, text=text, width=10, height=3, command=lambda t=text: on_button_click(t))
