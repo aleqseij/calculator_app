@@ -2,8 +2,12 @@ import tkinter as tk
 from calc_operations import (
     addition, subtraction, multiplication, division, modulus, power,
     square_root, sine, cosine, floor_value, ceil_value,
-    memory_add, memory_subtract, memory_clear, memory_recall
 )
+
+from calc_operations import Memory
+
+# Создаем экземпляр класса Memory
+memory = Memory()
 
 # Глобальная переменная для отображения текста в поле ввода
 entry_text = None
@@ -36,31 +40,59 @@ def on_equal():
         entry_text.set(f"Error: {e}")
 
 def on_memory_add():
-    """Добавляет текущее значение в память."""
+    """Добавить значение в память."""
     try:
         value = float(entry_text.get())
-        memory_add(value)
+        memory.m_add(value)
         entry_text.set("")
     except ValueError:
         entry_text.set("Error: Invalid input")
 
 def on_memory_subtract():
-    """Вычитает текущее значение из памяти."""
+    """Вычесть значение из памяти."""
     try:
         value = float(entry_text.get())
-        memory_subtract(value)
+        memory.m_subtract(value)
         entry_text.set("")
     except ValueError:
         entry_text.set("Error: Invalid input")
 
+def on_memory_multiply():
+    """Умножить значение в памяти."""
+    try:
+        value = float(entry_text.get())
+        memory.m_multiply(value)
+        entry_text.set("")
+    except ValueError:
+        entry_text.set("Error: Invalid input")
+
+def on_memory_divide():
+    """Разделить значение в памяти."""
+    try:
+        value = float(entry_text.get())
+        memory.m_divide(value)
+        entry_text.set("")
+    except ValueError:
+        entry_text.set("Error: Invalid input")
+    except ZeroDivisionError:
+        entry_text.set("Error: Cannot divide by zero")
+
 def on_memory_recall():
-    """Вставляет значение из памяти в поле ввода."""
-    value = memory_recall()
-    entry_text.set(entry_text.get() + str(value))
+    """Получить значение из памяти."""
+    entry_text.set(str(memory.m_recall()))
 
 def on_memory_clear():
-    """Очищает память."""
-    memory_clear()
+    """Очистить память."""
+    memory.m_clear()
+    entry_text.set("")
+
+def on_memory_delete():
+    """Удалить последнюю операцию из памяти."""
+    try:
+        memory.delete_last()
+        entry_text.set(str(memory.m_recall()))
+    except ValueError:
+        entry_text.set("Error: No operations to delete")
 
 def on_modulus():
     """Добавляет знак остатка от деления в поле ввода."""
