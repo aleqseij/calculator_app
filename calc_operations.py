@@ -1,4 +1,5 @@
 import math
+import decimal  # Добавьте этот импорт
 from decimal import Decimal
 
 def addition(a, b):
@@ -10,7 +11,12 @@ def subtraction(a, b):
 def multiplication(a, b):
     return a * b
 
+
 def division(a, b):
+    # Проверяем оба значения на корректность перед операцией
+    a = validate_decimal(a)
+    b = validate_decimal(b)
+
     if b == 0:
         raise ValueError("Cannot divide by zero")
     return a / b
@@ -40,8 +46,10 @@ def ceil_value(a):
 
 def validate_decimal(value):
     try:
+        # Попытка преобразовать значение в Decimal
         return Decimal(value)
-    except (ValueError, TypeError):
+    except (ValueError, TypeError, decimal.InvalidOperation):
+        # Бросаем исключение с понятным сообщением
         raise ValueError("Invalid input: Please enter a valid number")
 
 class Memory:
