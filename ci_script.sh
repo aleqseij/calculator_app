@@ -27,7 +27,7 @@ cd $srcdir
 git pull origin main
 
 # Шаг 2: Сборка проекта
-# Здесь мы собираем все Python файлы, включая main.py, ui.py, calc_operations.py и другие
+# Здесь используем Python для сборки (для примера, в зависимости от вашего проекта, это может быть другой процесс)
 echo "Сборка проекта..."
 python setup.py build  # Или любой другой инструмент сборки
 
@@ -35,10 +35,11 @@ python setup.py build  # Или любой другой инструмент сборки
 echo "Запуск юнит-тестов..."
 python -m unittest calc_test.py  # Запуск тестов из конкретного файла
 
-# Шаг 4: Создание установщика
+# Шаг 4: Создание установщика Inno Setup
 echo "Создание установщика Inno Setup..."
-# Пример скрипта Inno Setup
-innosetup_script="D:\installer.iss"
+
+# Указываем путь к файлу .iss (например, файл находится в D:\installer.iss)
+innosetup_script="D:/installer.iss"
 
 # В скрипте Inno Setup будут указаны пути к вашему проекту, а также версии
 cat > $innosetup_script <<EOF
@@ -50,11 +51,11 @@ OutputDir=Output
 OutputBaseFilename=$projname-$version
 
 [Files]
-Source: "$srcdir\\main.py"; DestDir: "{app}"; Flags: ignoreversion
-Source: "$srcdir\\ui.py"; DestDir: "{app}"; Flags: ignoreversion
-Source: "$srcdir\\calc_operations.py"; DestDir: "{app}"; Flags: ignoreversion
-Source: "$srcdir\\calc_test.py"; DestDir: "{app}"; Flags: ignoreversion
-Source: "$srcdir\\dist\\$projname.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:/calculator/calculator_app/main.py"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:/calculator/calculator_app/ui.py"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:/calculator/calculator_app/calc_operations.py"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:/calculator/calculator_app/calc_test.py"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:/calculator/calculator_app/dist/calculator_app.exe"; DestDir: "{app}"; Flags: ignoreversion
 EOF
 
 # Запуск Inno Setup для создания .exe установщика
@@ -89,7 +90,7 @@ dpkg-deb --build deb-package
 
 # Шаг 6: Установка приложения
 echo "Установка приложения..."
-OutputInstaller="Output\\$projname-$version.exe"
+OutputInstaller="Output/$projname-$version.exe"
 if [ -f "$OutputInstaller" ]; then
   $OutputInstaller /S  # Установка в тихом режиме (silent mode)
 else
