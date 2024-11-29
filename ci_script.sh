@@ -38,7 +38,7 @@ python -m unittest calc_test.py  # Запуск тестов из конкретного файла
 # Шаг 4: Создание установщика
 echo "Создание установщика Inno Setup..."
 # Пример скрипта Inno Setup
-innosetup_script="installer.iss"
+innosetup_script="D:\installer.iss"
 
 # В скрипте Inno Setup будут указаны пути к вашему проекту, а также версии
 cat > $innosetup_script <<EOF
