@@ -79,7 +79,7 @@ cat > deb-package/DEBIAN/control <<EOF
 Package: $projname
 Version: $version
 Architecture: amd64
-Maintainer: Your Name <youremail@example.com>
+Maintainer: Your Name <skvorodinmihail@gmail.com>
 Description: $projname - Калькулятор
 Depends: python3
 EOF
