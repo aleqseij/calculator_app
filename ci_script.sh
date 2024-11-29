@@ -31,14 +31,24 @@ git pull origin main
 echo "Сборка проекта..."
 python setup.py build  # Или любой другой инструмент сборки
 
-# Шаг 3: Запуск юнит-тестов
+# Шаг 3: Сборка исполнимого файла с помощью PyInstaller
+echo "Создание исполнимого файла с помощью PyInstaller..."
+pyinstaller --onefile main.py  # Генерация .exe файла
+
+# Проверьте, что файл .exe был создан
+if [ ! -f "dist/$projname.exe" ]; then
+  echo "Ошибка: исполнимый файл .exe не был создан!"
+  exit 1
+fi
+
+# Шаг 4: Запуск юнит-тестов
 echo "Запуск юнит-тестов..."
 python -m unittest calc_test.py  # Запуск тестов из конкретного файла
 
-# Шаг 4: Создание установщика Inno Setup
+# Шаг 5: Создание установщика Inno Setup
 echo "Создание установщика Inno Setup..."
 
-# Указываем путь к файлу .iss (например, файл находится в D:\installer.iss)
+# Указываем путь к файлу .iss (например, файл находится в D:/installer.iss)
 innosetup_script="D:/installer.iss"
 
 # В скрипте Inno Setup будут указаны пути к вашему проекту, а также версии
@@ -55,13 +65,13 @@ Source: "D:/calculator/calculator_app/main.py"; DestDir: "{app}"; Flags: ignorev
 Source: "D:/calculator/calculator_app/ui.py"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:/calculator/calculator_app/calc_operations.py"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:/calculator/calculator_app/calc_test.py"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:/calculator/calculator_app/dist/calculator_app.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:/calculator/calculator_app/dist/$projname.exe"; DestDir: "{app}"; Flags: ignoreversion
 EOF
 
 # Запуск Inno Setup для создания .exe установщика
-"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" $innosetup_script
+"C:/Program Files (x86)/Inno Setup 6/ISCC.exe" $innosetup_script
 
-# Шаг 5: Создание Deb пакета
+# Шаг 6: Создание Deb пакета
 echo "Создание Deb пакета..."
 
 # Подготовка структуры для Deb пакета
@@ -80,7 +90,7 @@ cat > deb-package/DEBIAN/control <<EOF
 Package: $projname
 Version: $version
 Architecture: amd64
-Maintainer: Your Name <skvorodinmihail@gmail.com>
+Maintainer: Your Name <youremail@example.com>
 Description: $projname - Калькулятор
 Depends: python3
 EOF
@@ -88,7 +98,7 @@ EOF
 # Создаем deb пакет с помощью dpkg-deb
 dpkg-deb --build deb-package
 
-# Шаг 6: Установка приложения
+# Шаг 7: Установка приложения
 echo "Установка приложения..."
 OutputInstaller="Output/$projname-$version.exe"
 if [ -f "$OutputInstaller" ]; then
